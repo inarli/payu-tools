@@ -1,0 +1,27 @@
+{
+  "name": "inarli/payu-tools",
+  "description": "Payunun resmi olarak sunduğu kütüphanesinde olmayan temel özellikler",
+  "license": "Apache2",
+  "keywords": ["alu", "payu", "token v2", "payment"],
+  "authors": [
+    {
+      "name": "İlkay Narlı",
+      "email": "ilkaynarli@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3",
+    "ext-curl": "*",
+    "guzzlehttp/guzzle":"6.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.8",
+    "symfony/var-dumper":"v3.3.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "PayuTools\\": "src/payutools/",
+      "PayuTools\\Exceptions\\": "src/payutools/Exceptions"
+    }
+  }
+}
