@@ -2,11 +2,11 @@
 require_once "./vendor/autoload.php";
 use PayuTools\Client;
 use PayuTools\Merchant;
-use PayuTools\Request\Token\InformationRequest;
+use PayuTools\Request\Refund\RefundRequest;
 
 $merchant = new Merchant('OPU_TEST', 'SECRET_KEY');
-$informationRequest = new InformationRequest('8fb4f690b90bcf822b338af35b85a5c3');
+$refundRequest = new RefundRequest(38821779, '241.94', 'TRY', '100');
 $client = new Client($merchant);
-$response = $client->send($informationRequest);
+$response = $client->send($refundRequest);
 var_dump($response);
 

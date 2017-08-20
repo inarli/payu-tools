@@ -24,8 +24,8 @@ class RefundTest extends \PHPUnit_Framework_TestCase
 
     public function testRefund()
     {
-        $cancelRequest = new RefundRequest(38821779, '241.94', 'TRY', '100');
-        $response = $this->client->send($cancelRequest);
+        $refundRequest = new RefundRequest(38821779, '241.94', 'TRY', '100');
+        $response = $this->client->send($refundRequest);
         $this->assertEquals($response->getStatus(), 'fail');
         $this->assertNotEquals($response->getData()['response_msg'], 'OK');
         $this->assertNotNull($response->getError());
