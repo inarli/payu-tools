@@ -8,6 +8,7 @@
 namespace PayuTools\Interfaces;
 
 use GuzzleHttp\Psr7\Response;
+use PayuTools\Merchant;
 
 interface RequestInterface
 {
@@ -17,4 +18,5 @@ interface RequestInterface
     public function getResponse();
     public function getRequestMethod();
     public function getEndpoint();
+    public function signature(Merchant $merchant);
 }

@@ -1,18 +1,17 @@
 <?php
 /**
- * PayU Token Cancel Request Test
+ * PayU Refund Test
  *
  * @since     Aug 2017
  * @author    İlkay NARLI <ilkaynarli@gmail.com>
  */
-
 namespace Tests;
 
 use PayuTools\Client;
 use PayuTools\Merchant;
-use PayuTools\Request\Token\CancelRequest;
+use PayuTools\Request\Refund\RefundRequest;
 
-class CancelTokenTest extends \PHPUnit_Framework_TestCase
+class RefundTest extends \PHPUnit_Framework_TestCase
 {
     /** @var  Client */
     protected $client;
@@ -23,11 +22,12 @@ class CancelTokenTest extends \PHPUnit_Framework_TestCase
         $this->client = new Client($merchant);
     }
 
-    public function testCancel()
+    public function testRefund()
     {
-        $cancelRequest = new CancelRequest('5213b33bad3c07e87e8f032c94452bdc', 'Token cancelled');
+        $cancelRequest = new RefundRequest(38821779, '241.94', 'TRY', '100');
         $response = $this->client->send($cancelRequest);
         $this->assertEquals($response->getStatus(), 'fail');
+        $this->assertNotEquals($response->getData()['response_msg'], 'OK');
         $this->assertNotNull($response->getError());
     }
 }

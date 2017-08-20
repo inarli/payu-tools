@@ -5,6 +5,7 @@
  * @since     Aug 2017
  * @author    İlkay NARLI <ilkaynarli@gmail.com>
  */
+
 namespace PayuTools\Response;
 
 use GuzzleHttp\Psr7\Response;

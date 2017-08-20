@@ -5,38 +5,24 @@
  * @since     Aug 2017
  * @author    İlkay NARLI <ilkaynarli@gmail.com>
  */
+
 namespace PayuTools\Request\Token;
 
 use GuzzleHttp\Psr7\Response;
 use PayuTools\Response\Token\CancelResponse;
-use PayuTools\Interfaces\RequestInterface;
 
-class CancelRequest extends AbstractTokenRequest implements RequestInterface
+class CancelRequest extends AbstractTokenRequest
 {
     static $HTTP_REQUEST_METHOD = 'DELETE';
 
-    protected $reason;
+    public $reason;
+
+    public $token;
 
     public function __construct($token, $reason)
     {
-        $this->setReason($reason);
-        $this->setToken($token);
-    }
-
-    /**
-     * @return string
-     */
-    public function getReason()
-    {
-        return $this->reason;
-    }
-
-    /**
-     * @param string $reason
-     */
-    public function setReason($reason)
-    {
         $this->reason = $reason;
+        $this->token = $token;
     }
 
     /**
@@ -44,17 +30,19 @@ class CancelRequest extends AbstractTokenRequest implements RequestInterface
      */
     public function buildRequestParams()
     {
-        $this->requestArray['reason'] = $this->getReason();
+        $this->requestArray['reason'] = $this->reason;
         return $this->requestArray;
     }
 
     public function buildEndpoint()
     {
-        $this->endpoint = sprintf('%s/%s', $this->endpoint, $this->getToken());
+        $this->endpoint = sprintf('%s/%s', $this->endpoint, $this->token);
     }
 
     /**
      * @param \GuzzleHttp\Psr7\Response $response
+     *
+     * @return \GuzzleHttp\Psr7\Response|void
      */
     public function buildResponse(Response $response)
     {

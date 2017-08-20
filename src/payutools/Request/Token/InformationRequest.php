@@ -5,19 +5,21 @@
  * @since     Aug 2017
  * @author    İlkay NARLI <ilkaynarli@gmail.com>
  */
+
 namespace PayuTools\Request\Token;
 
 use GuzzleHttp\Psr7\Response;
 use PayuTools\Response\Token\InformationResponse;
-use PayuTools\Interfaces\RequestInterface;
 
-class InformationRequest extends AbstractTokenRequest implements RequestInterface
+class InformationRequest extends AbstractTokenRequest
 {
     static $HTTP_REQUEST_METHOD = 'GET';
 
+    public $token;
+
     public function __construct($token)
     {
-        $this->setToken($token);
+        $this->token = $token;
     }
 
     /**

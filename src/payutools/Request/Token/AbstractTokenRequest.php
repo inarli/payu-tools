@@ -7,72 +7,25 @@
  */
 namespace PayuTools\Request\Token;
 
-use PayuTools\Interfaces\RequestInterface;
 
-abstract class AbstractTokenRequest implements RequestInterface
+use PayuTools\Merchant;
+use PayuTools\Request\AbstractRequest;
+
+class AbstractTokenRequest extends AbstractRequest
 {
     protected $endpoint = 'https://secure.payu.com.tr/order/token/v2/merchantToken';
 
-    protected $requestArray = [];
-
-    protected $response;
-
-    protected $token;
-
-    /**
-     * @return string
-     */
-    public function getToken()
+    public function signature(Merchant $merchant)
     {
-        return $this->token;
-    }
-
-    /**
-     * @param string $token
-     */
-    public function setToken($token)
-    {
-        $this->token = $token;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRequestMethod()
-    {
-        return static::$HTTP_REQUEST_METHOD;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEndpoint()
-    {
-        $this->buildEndpoint();
-        return $this->endpoint;
-    }
-
-    /**
-     * @return string
-     */
-    public function buildEndpoint()
-    {
-        return $this->endpoint;
-    }
-
-    /**
-     * @return \PayuTools\Response\AbstractResponse
-     */
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    /**
-     * @return array
-     */
-    public function buildRequestParams()
-    {
-        return $this->requestArray;
+        $requestParams = array_unique($this->buildRequestParams());
+        $requestParams['merchant'] = $merchant->getMerchantCode();
+        $requestParams['timestamp'] = time();
+        ksort($requestParams);
+        $hashString = '';
+        foreach ($requestParams as $param) {
+            $hashString .= $param;
+        }
+        $requestParams['signature'] = hash_hmac('SHA256', $hashString, $merchant->getSecretKey());
+        return $requestParams;
     }
 }

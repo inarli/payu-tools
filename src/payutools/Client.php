@@ -5,6 +5,7 @@
  * @since     Aug 2017
  * @author    İlkay NARLI <ilkaynarli@gmail.com>
  */
+
 namespace PayuTools;
 
 use GuzzleHttp\Client as HttpClient;
@@ -48,7 +49,7 @@ class Client
      */
     public function delete(RequestInterface $request)
     {
-        return $this->client->delete($request->getEndpoint(), ['query' => http_build_query($this->signature($request))]);
+        return $this->client->delete($request->getEndpoint(), ['query' => http_build_query($request->signature($this->merchant))]);
     }
 
     /**
@@ -58,7 +59,7 @@ class Client
      */
     public function get(RequestInterface $request)
     {
-        return $this->client->get($request->getEndpoint(), ['query' => http_build_query($this->signature($request))]);
+        return $this->client->get($request->getEndpoint(), ['query' => http_build_query($request->signature($this->merchant))]);
     }
 
     /**
@@ -68,27 +69,6 @@ class Client
      */
     public function post(RequestInterface $request)
     {
-        return $this->client->post($request->getEndpoint(), ['form_params' => http_build_query($this->signature($request))]);
-    }
-
-    /**
-     *
-     *
-     * @param \PayuTools\Interfaces\RequestInterface $request
-     *
-     * @return string
-     */
-    private function signature(RequestInterface $request)
-    {
-        $requestParams = array_unique($request->buildRequestParams());
-        $requestParams['merchant'] = $this->merchant->getMerchantCode();
-        $requestParams['timestamp'] = time();
-        ksort($requestParams);
-        $hashString = '';
-        foreach ($requestParams as $param) {
-            $hashString .= $param;
-        }
-        $requestParams['signature'] = hash_hmac('SHA256', $hashString, $this->merchant->getSecretKey());
-        return $requestParams;
+        return $this->client->post($request->getEndpoint(), ['form_params' => $request->signature($this->merchant)]);
     }
 }

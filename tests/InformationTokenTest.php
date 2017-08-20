@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * PayU Token Information Request Test
+ *
+ * @since     Aug 2017
+ * @author    İlkay NARLI <ilkaynarli@gmail.com>
+ */
 namespace Tests;
 
 use PayuTools\Client;
