@@ -30,6 +30,7 @@ class RefundResponse extends AbstractResponse
         } else {
             $this->setStatus(self::FAIL_RESPONSE);
             $this->setError($responseParams[2]);
+            $this->setErrorCode($responseParams[1]);
         }
     }
 

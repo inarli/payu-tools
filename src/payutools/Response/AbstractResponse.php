@@ -17,7 +17,23 @@ abstract class AbstractResponse
     protected $status;
     protected $error;
     protected $data;
+    protected $errorCode;
 
+    /**
+     * @return mixed
+     */
+    public function getErrorCode()
+    {
+        return $this->errorCode;
+    }
+
+    /**
+     * @param mixed $errorCode
+     */
+    public function setErrorCode($errorCode)
+    {
+        $this->errorCode = $errorCode;
+    }
     /**
      * @param \GuzzleHttp\Psr7\Response $response
      *

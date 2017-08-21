@@ -29,5 +29,6 @@ class RefundTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($response->getStatus(), 'fail');
         $this->assertNotEquals($response->getData()['response_msg'], 'OK');
         $this->assertNotNull($response->getError());
+        $this->assertNotNull($response->getErrorCode());
     }
 }
