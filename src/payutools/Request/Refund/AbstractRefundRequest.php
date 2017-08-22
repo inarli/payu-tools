@@ -23,7 +23,7 @@ class AbstractRefundRequest extends AbstractRequest
      */
     public function signature(Merchant $merchant)
     {
-        $requestParams = array_unique($this->buildRequestParams());
+        $requestParams = $this->buildRequestParams();
         $requestParams['MERCHANT'] = $merchant->getMerchantCode();
         $requestParams['IRN_DATE'] = date('Y-m-d H:i:s');
 

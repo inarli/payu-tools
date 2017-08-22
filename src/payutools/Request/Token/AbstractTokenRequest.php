@@ -17,7 +17,7 @@ class AbstractTokenRequest extends AbstractRequest
 
     public function signature(Merchant $merchant)
     {
-        $requestParams = array_unique($this->buildRequestParams());
+        $requestParams = $this->buildRequestParams();
         $requestParams['merchant'] = $merchant->getMerchantCode();
         $requestParams['timestamp'] = time();
         ksort($requestParams);
