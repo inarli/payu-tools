@@ -1,4 +1,5 @@
 ### PHP Client For PayU
+[![Build Status](https://travis-ci.org/inarli/payu-tools.svg?branch=master)](https://travis-ci.org/inarli/payu-tools)
 
 You can send request to PayU Rest API with this library;
 
